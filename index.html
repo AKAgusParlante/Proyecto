@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>RIVER PLATE</title>
+    <link rel="stylesheet" href="./CSS/index.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet">
+	
+</head>
+<body>
+
+    
+
+<div class="texto">
+    <img src="../JavaScript/img/Logo_River_Plate.png" alt="river" width="200px">
+    <h1>PLANTEL RIVER PLATE 2023</h1> 
+
+    <div class="container">
+        <h1>¡BIENVENIDO!</h1>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Iniciar Sesión
+        </button>
+    </div>
+    
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">INICIAR SESIÓN</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+    <form class="form">
+      <div class="form-group">
+        <label for="email">Ingresar Email:</label>
+        <input type="email" class="form-control" id="email" placeholder="Enter email">
+      </div>
+      <div class="form-group">
+        <label for="password">Contraseña:</label>
+        <input type="password" class="form-control" id="password" placeholder="Enter password">
+      </div>
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="rememberMe">
+        <label class="form-check-label" for="rememberMe">Recordarme</label>
+      </div>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"></script>
+
+
+
+<div class="vector">
+    <button class="btn" onclick=mostrarLista()>MOSTRAR PLANTEL</button> 
+    <div id="lista2"></div>
+
+    
+    <b>
+        <h4>ORDENAR POR EDAD</h4>
+        <button class="btn" onclick="ascendente()">MENOR A MAYOR</button>
+        <button class="btn" onclick="descendente()">MAYOR A MENOR</button>
+    </b>
+   
+
+    <br><hr><br>
+    
+    <div class="eliminarjugador">
+        <h3>ELIMINAR JUGADOR</h3>
+        <input type=number id='indiceElemento'>
+        <button class="btn" onclick = eliminarjugador() id="enter" >INDICE DE JUGADOR</button>   
+    </div> 
+
+   
+    
+</div>
+
+<br><hr><br>
+
+<h3>AGREGAR JUGADOR</h3>
+<div class="agregar">
+   
+    <p><label>NOMBRE:</label>
+    <input type='text' required id='nombre'></p>
+    
+    <p><label>EDAD:</label>
+    <input type='number' required id='edad'></p>
+
+    <p><label>POSICIÓN:</label>
+    <input type='text'required id='posicion'></p>
+
+    <p><label>VALOR:</label>
+    <input type='number' required id='valor'></p>
+
+    <p><input type='checkbox' name='nacionalidad' required id='nacionalidad'>
+    <label>ARGENTINO</label></p>   
+
+    <button class="btn" onclick= "agregar()"> AGREGAR </button>
+
+    <div id="salidaTabla"></div>
+   
+</div>
+
+
+<br><hr><br>
+
+<div class="consultas">
+    <h3>CONSULTAS</h3>
+    <button class="btn" onclick="consulta1()">MOSTRAR JUGADORES EXTRAJEROS DEL PLANTEL</button>
+    <div id="resultado1"></div>
+    <br><hr><br>
+    <button class="btn" onclick="consulta2()">MOSTRAR JUGADORES ARGENTINOS DEL PLANTEL</button>
+    <div id="resultado2"></div>
+    <br><hr><br>
+    <button class="btn" onclick="consulta3()">MOSTRAR JUGADORES MAYORES A 25 AÑOS</button>
+    <div id="resultado3"></div>
+    <br><hr><br>
+    <button class="btn" onclick="consulta4()">MOSTRAR JUGADORES MENORES A 25 AÑOS</button>
+    <div id="resultado4"></div>
+    <br><hr><br>
+    <button class="btn" onclick="consulta5()">MOSTRAR A LOS DELANTEROS DEL PLANTEL</button>
+    <div id="resultado5"></div>
+    <br><hr><br>
+    <button class="btn" onclick="consulta6()">MOSTRAR A LOS MEDIOCENTROS OFENSIVOS DEL PLANTEL</button>
+    <div id="resultado6"></div>
+    <br><hr><br>
+    <button class="btn" onclick="consulta7()">MOSTRAR A LOS MEDIOCENTROS DEL PLANTEL</button>
+    <div id="resultado7"></div>
+    <br><hr><br>
+    <button class="btn" onclick="consulta8()">MOSTRAR A LOS DEFENSORES DEL PLANTEL</button>
+    <div id="resultado8"></div>
+    <br><hr><br>
+    <button class="btn" onclick="consulta9()">PROMEDIO DE EDAD DEL PLANTEL</button>
+    <div id="resultado9"></div>
+    <br><hr><br>
+    <button class="btn" onclick="consulta10()">PROMEDIO DE EDAD DE LOS EXTRANJEROS DEL PLANTEL</button>
+    <div id="resultado10"></div>
+</div>
+
+</div>
+
+
+
+
+
+
+
+<script>
+
+//localStorage
+var txt_nombre = localStorage.getItem("lsNombre");
+if(txt_nombre){
+    var NombreApellido = JSON.parse(txt_nombre);
+}else{
+    var NombreApellido = [];
+}
+
+var txt_edad = localStorage.getItem("lsEdad");
+if(txt_edad){
+    var edad = JSON.parse(txt_edad);
+}else{
+    var edad = [];
+}
+
+var txt_posicion = localStorage.getItem("lsPosicion");
+if(txt_posicion){
+    var posicion = JSON.parse(txt_posicion);
+}else{
+    var posicion = [];
+}
+
+var txt_valor = localStorage.getItem("lsValor");
+if(txt_valor){
+    var valor = JSON.parse(txt_valor);
+}else{
+    valor = [];
+}
+
+var txt_argentino = localStorage.getItem("lsArgentino");
+if(txt_argentino){
+    var argentino = JSON.parse(txt_argentino);
+}else{
+    argentino = [];
+}
+
+
+function mostrarLista() {
+    var str="";
+    str=str+"<thead><tr><td>"+"</td>"+"<th>"+"NOMBRE Y APELLIDO"+"</th>"+"<th>"+"EDAD"+"</th>"+"<th>"+"POSICIÓN"+"</th> <th>"+"VALOR"+"</th>"+"<th>"+"NACIONALIDAD"+"</th></tr></thead>";
+    for(var i=0 ; i < NombreApellido.length ; i++){
+        str= str+ "<tbody><tr><td>"+i+"</td>"+"<td>"+NombreApellido[i]+"</td>"+"<td>"+edad[i]+"</td>"+"<td>"+posicion[i]+"</td>"+"<td>"+valor[i]+"</td><td>"+argentino[i]+"</td> </tr></tbody>";
+    }
+    str = "<table>"+str+"</table>";
+    document.getElementById("lista2").innerHTML= str;
+
+    localStorage.setItem("lsNombre",JSON.stringify(NombreApellido));
+    localStorage.setItem("lsEdad",JSON.stringify(edad));
+    localStorage.setItem("lsPosicion",JSON.stringify(posicion));
+    localStorage.setItem("lsValor",JSON.stringify(valor));
+    localStorage.setItem("lsArgentino",JSON.stringify(argentino));
+    
+}
+
+
+
+function eliminarjugador(){
+
+    var paraEliminar = document.getElementById('indiceElemento').value;
+    NombreApellido.splice(paraEliminar,1);
+    edad.splice(paraEliminar,1);
+    posicion.splice(paraEliminar,1);
+    valor.splice(paraEliminar,1)
+    argentino.splice(paraEliminar,1);
+    mostrarLista();
+}
+
+function agregar(){
+    var nNombre = document.getElementById('nombre').value;
+    var nEdad = document.getElementById('edad').value;
+    var nPosicion = document.getElementById('posicion').value;
+    var nValor = document.getElementById('valor').value;
+    var nNacionalidad = document.getElementsByName('nacionalidad')[0].checked;
+    
+    NombreApellido.push(nNombre);
+    edad.push(nEdad);
+    posicion.push(nPosicion);
+    valor.push(nValor);
+    argentino.push(nNacionalidad);
+    mostrarLista();
+}
+//Menor a mayor
+function ascendente(){
+                var bandera,aux;
+                do{
+                    bandera = false;
+                    for(var i=0 ; i<NombreApellido.length - 1 ; i++){
+                        if(edad[i]>edad[i+1]){
+                            console.log(edad[i]+" "+edad[i+1]);
+                            aux = edad[i];
+                            edad[i] = edad[i+1];
+                            edad[i+1]= aux;
+                            bandera = true;
+ 
+                            aux = NombreApellido[i];
+                            NombreApellido[i]= NombreApellido[i+1];
+                            NombreApellido[i+1]=aux;
+
+                            aux = posicion[i];
+                            posicion[i]= posicion[i+1];
+                            posicion[i+1]=aux;
+
+                            aux = valor[i];
+                            valor[i]= valor[i+1];
+                            valor[i+1]=aux;
+
+                            aux = argentino[i];
+                            argentino[i]= argentino[i+1];
+                            argentino[i+1]=aux;
+                        }
+                    }
+                }while(bandera);
+                mostrarLista();
+            }
+//Mayor a menor         
+ function descendente(){
+                var bandera,aux;
+                do{
+                    bandera = false;
+                    for(var i=0 ; i<NombreApellido.length - 1 ; i++){
+                        if(edad[i]<edad[i+1]){
+                            console.log(edad[i]+" "+edad[i+1]);
+                            aux = edad[i];
+                            edad[i] = edad[i+1];
+                            edad[i+1]= aux;
+                            bandera = true;
+ 
+                            aux = NombreApellido[i];
+                            NombreApellido[i]= NombreApellido[i+1];
+                            NombreApellido[i+1]=aux;
+
+                            aux = posicion[i];
+                            posicion[i]= posicion[i+1];
+                            posicion[i+1]=aux;
+
+                            aux = valor[i];
+                            valor[i]= valor[i+1];
+                            valor[i+1]=aux;
+
+                            aux = argentino[i];
+                            argentino[i]= argentino[i+1];
+                            argentino[i+1]=aux;
+                        }
+                    }
+                }while(bandera);
+                mostrarLista();
+            } 
+//Mostrar extranjeros del plantel
+function consulta1(){
+    
+    opc="";
+    for(let i=0;i<NombreApellido.length;i++){
+        if(argentino[i]==false) {
+            opc+="<p>"+NombreApellido[i]+" "+edad[i]+" "+posicion[i]+"<p>";            
+        }
+    } document.getElementById('resultado1').innerHTML = opc;
+}
+//Mostrar argentinos del plantel
+function consulta2(){
+    opc="";
+    for(let i=0;i<NombreApellido.length;i++){
+        if(argentino[i]==true) {
+            opc+="<p>"+NombreApellido[i]+" "+edad[i]+" "+posicion[i]+"<p>";            
+        }
+    } document.getElementById('resultado2').innerHTML = opc;
+}
+//Mostrar mayores de 25 años 
+function consulta3(){
+    opc="";
+    for(let i=0;i<NombreApellido.length;i++){
+        if(edad[i]>25) {
+            opc+="<p>"+NombreApellido[i]+" "+edad[i]+" "+posicion[i]+"<p>";            
+        }
+    } document.getElementById('resultado3').innerHTML = opc;
+}
+//Mostrar menores a 25 años 
+function consulta4(){
+    opc="";
+    for(let i=0;i<NombreApellido.length;i++){
+        if(edad[i]<25) {
+            opc+="<p>"+NombreApellido[i]+" "+edad[i]+" "+posicion[i]+"<p>";            
+        }
+    } document.getElementById('resultado4').innerHTML = opc;
+}
+//Mostrar delanteros del plantel 
+function consulta5(){
+    opc="";
+    for(let i=0;i<NombreApellido.length;i++){
+        if(posicion[i]=="Delantero") {
+            opc+="<p>"+NombreApellido[i]+" "+edad[i]+" "+posicion[i]+"<p>";            
+        }
+    } document.getElementById('resultado5').innerHTML = opc;
+}
+
+//Mostrar mediocentro ofensivo del plantel
+function consulta6(){
+    opc="";
+    for(let i=0;i<NombreApellido.length;i++){
+        if(posicion[i]=="Mediocentro Ofensivo") {
+            opc+="<p>"+NombreApellido[i]+" "+edad[i]+" "+posicion[i]+"<p>";            
+        }
+    } document.getElementById('resultado6').innerHTML = opc;
+}
+//Mostrar mediocentro del plantel
+function consulta7(){
+    opc="";
+    for(let i=0;i<NombreApellido.length;i++){
+        if(posicion[i]=="Mediocentro") {
+            opc+="<p>"+NombreApellido[i]+" "+edad[i]+" "+posicion[i]+"<p>";            
+        }
+    } document.getElementById('resultado7').innerHTML = opc;
+}
+//Mostrar defensa del plantel
+function consulta8(){
+    opc="";
+    for(let i=0;i<NombreApellido.length;i++){
+        if(posicion[i]=="Defensa") {
+            opc+="<p>"+NombreApellido[i]+" "+edad[i]+" "+posicion[i]+"<p>";            
+        }
+    } document.getElementById('resultado8').innerHTML = opc;
+}
+
+
+//Promedio de edad del plantel
+function consulta9(){
+
+let contador1=0;
+let acumulador1=0;
+for(let i=0;i<NombreApellido.length;i++){
+	contador1+=1;
+	acumulador1=acumulador1+JSON.parse(edad[i]); 
+}
+document.getElementById('resultado9').innerHTML=("El promedio de edad del plantel es de  "+ [acumulador1/contador1]+ " años"+"<br>");
+}
+//Promedio de edad de los extranjeros 
+function consulta10(){
+
+let contador1=0;
+let acumulador1=0;
+for(let i=0;i<NombreApellido.length;i++){
+	if(argentino[i]==false){
+        contador1+=1;
+	acumulador1=acumulador1+JSON.parse(edad[i]); 
+    }
+}
+document.getElementById('resultado10').innerHTML=("El promedio de edad de los extranjeros del plantel es de  "+ [acumulador1/contador1]+ " años"+"<br>");
+}
+
+
+
+</script>
+
+
+</body>
+</html>
